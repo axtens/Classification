@@ -3,11 +3,32 @@
 using Newtonsoft.Json;
 
 using System;
+using System.Collections.Generic;
 
 namespace Classification
 {
+    [Serializable()]
+    public class NameConfidence
+    {
+        public string Name { get; set; }
+        public double Confidence { get; set; }
+    }
+
+    [Serializable()]
+    public class RootObject
+    {
+        public List<NameConfidence> NameConfidences { get; set; }
+    }
+
     public class Classifier
     {
+        public static string ClassifyPlainTextAsXml(string text)
+        {
+            var classfication = ClassifyPlainText(text);
+            RootObject classificationObject = JsonConvert.DeserializeObject<RootObject>(classfication);
+            return classificationObject.Serialize<RootObject>();
+        }
+
         public static string ClassifyPlainText(string text)
         {
             var document = new Document
