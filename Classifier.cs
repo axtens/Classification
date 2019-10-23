@@ -18,7 +18,7 @@ namespace Classification
     public class Classification
     {
         public object Error { get; set; }
-        public List<Cargo> Cargoes { get; set; }
+        public List<Cargo> Cargo { get; set; }
     }
 
     public class Classifier
