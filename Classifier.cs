@@ -8,32 +8,34 @@ using System.Collections.Generic;
 namespace Classification
 {
     [Serializable()]
-    public class NameConfidence
+    public class Cargo
     {
         public string Name { get; set; }
         public double Confidence { get; set; }
     }
 
     [Serializable()]
-    public class RootObject
+    public class Classification
     {
-        public List<NameConfidence> NameConfidences { get; set; }
+        public object Error { get; set; }
+        public List<Cargo> Cargo { get; set; }
     }
 
     public class Classifier
     {
         public static string ClassifyPlainTextAsXml(string text)
         {
-            var classfication = ClassifyPlainText(text);
-            RootObject classificationObject = JsonConvert.DeserializeObject<RootObject>(classfication);
-            return classificationObject.Serialize<RootObject>();
+            //System.Diagnostics.Debugger.Launch();
+            var classification = ClassifyPlainText(text);
+            var classificationObject = JsonConvert.DeserializeObject<Classification>(classification);
+            return classificationObject.Serialize<Classification>();
         }
 
         public static string ClassifyHtmlAsXml(string html)
         {
             var classfication = ClassifyHtml(html);
-            RootObject classificationObject = JsonConvert.DeserializeObject<RootObject>(classfication);
-            return classificationObject.Serialize<RootObject>();
+            Classification classificationObject = JsonConvert.DeserializeObject<Classification>(classfication);
+            return classificationObject.Serialize<Classification>();
         }
 
         public static string ClassifyPlainText(string text)
