@@ -29,6 +29,13 @@ namespace Classification
             return classificationObject.Serialize<RootObject>();
         }
 
+        public static string ClassifyHtmlAsXml(string html)
+        {
+            var classfication = ClassifyHtml(html);
+            RootObject classificationObject = JsonConvert.DeserializeObject<RootObject>(classfication);
+            return classificationObject.Serialize<RootObject>();
+        }
+
         public static string ClassifyPlainText(string text)
         {
             var document = new Document
