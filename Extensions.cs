@@ -7,19 +7,17 @@ namespace Classification
     {
         public static T Deserialize<T>(this string toDeserialize)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-            using (StringReader textReader = new StringReader(toDeserialize))
+            using (var textReader = new StringReader(toDeserialize))
             {
-                return (T)xmlSerializer.Deserialize(textReader);
+                return (T)new XmlSerializer(typeof(T)).Deserialize(textReader);
             }
         }
 
         public static string Serialize<T>(this T toSerialize)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
             using (StringWriter textWriter = new StringWriter())
             {
-                xmlSerializer.Serialize(textWriter, toSerialize);
+                new XmlSerializer(typeof(T)).Serialize(textWriter, toSerialize);
                 return textWriter.ToString();
             }
         }
